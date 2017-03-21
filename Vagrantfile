@@ -22,8 +22,8 @@ Vagrant.configure(2) do |config|
         vb.cpus = 2
         vb.customize ['modifyvm', :id, '--usb', 'on']
         vb.customize ["modifyvm", :id, "--vram", "64"]
-        vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
-        vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'SmartCard', '--vendorid', '0x04e6', '--productid', '0xe001']
+        # Appropriate path to where your smartcard reader is mapped
+        #vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'SmartCard', '--vendorid', '0x04e6', '--productid', '0xe001']
     end
 
     # Start provisioning of box via ssh
@@ -42,16 +42,16 @@ Vagrant.configure(2) do |config|
         # Copy local files to box
         # Your local copy of InstallRoot
         config.vm.provision "certs", type: "file" do |copy|
-            copy.source = "~/vagrant/daily/provision/InstallRoot4.1.msi"
+            copy.source = "provision/InstallRoot4.1.msi"
             copy.destination = "C:\\Users\\IEUser\\InstallRoot.msi"
         end
         # If you have a local copy of Office to push and install...
         #config.vm.provision "office", type: "file" do |copy|
-        #    copy.source = "~/vagrant/daily/provision/OfficeSetupx64.exe"
+        #    copy.source = "provision/OfficeSetupx64.exe"
         #    copy.destination = "C:\\Users\\IEUser\\OfficeSetupx64.exe"
         #end
         config.vm.provision "programs", type: "file" do |copy|
-            copy.source = "~/vagrant/daily/provision/packages.config"
+            copy.source = "provision/packages.config"
             copy.destination = "C:\\Users\\IEUser\\packages.config" 
         end
         # Remove BGInfo background and install required applications via chocolately and locally
