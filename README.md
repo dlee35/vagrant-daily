@@ -1,4 +1,4 @@
-#This repo will create a working Win10 image that allows one to connect to *necessary* resources.#
+## This repo will create a working Win10 image that allows one to connect to *necessary* resources.
 
 * Performs the following:
   * winrm management
