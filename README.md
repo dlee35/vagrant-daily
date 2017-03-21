@@ -8,13 +8,15 @@
     * python2
     * java
   * package required from militarycac:
-    * InstallRoot.msi
+    * InstallRoot*version*.msi
 
 **Run:**
 **vagrant up && vagrant up --provision-with certs,programs,registry,install && vagrant reload**
 
 * Requires the following
   * Win10 image from Modern.IE: http://aka.ms/ie11.win10.vagrant
+    * Extracted with the Vagrantfile pointing to the proper box file
+  * Vagrant
   * VirtualBox or VMWare w/Vagrant plugin
   * InstallRoot from MilitaryCAC or another trusted source
 
