@@ -48,16 +48,6 @@ module LocalCommand
             begin
                 ssh = Net::SSH.start("localhost", "IEUser", :password => "Passw0rd!", :port => 2222)
 
-                #puts "Disabling firewall..."
-                #res = ssh.exec!('NetSh Advfirewall set allprofiles state off')
-                #for debug
-                #puts res
-
-                #puts "Waiting for network..."
-                #res = ssh.exec!('ping -n 10 8.8.8.8')
-                #for debug
-                #puts res
-
                 puts "Changing network location..."
                 res = ssh.exec!('powershell -c "get-netconnectionprofile | set-netconnectionprofile -networkcategory private"')
 		res = ssh.exec!('winrm.cmd quickconfig -q -transport:http')
@@ -72,11 +62,6 @@ module LocalCommand
                 
                 #puts "Turn off User Account Control..."
                 #res = ssh.exec!("cmd /c \"reg add HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v EnableLUA /d 0 /t REG_DWORD /f /reg:64\"")
-
-                #puts "Creating link to config WinRM on Startup..."
-                #res = ssh.exec!("mv ./tools/ConfigWinRM.lnk \"/cygdrive/c/Users/IEUser/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup\"")
-                #for debug
-                #puts res
 
                 puts 'Shutting down guest machine...'
                 ssh.exec!("shutdown -t 0 -s -f")

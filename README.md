@@ -1,4 +1,4 @@
-## This repo will create a working Win10 image that allows one to connect to *necessary* resources.
+### This repo will create a working Win10 image that allows one to connect to *necessary* resources.
 
 * Performs the following:
   * winrm management
@@ -16,3 +16,7 @@
 * Requires the following
   * Win10 image from Modern.IE: http://aka.ms/ie11.win10.vagrant
   * VirtualBox or VMWare w/Vagrant plugin
+  * InstallRoot from MilitaryCAC or another trusted source
+
+###### Credit goes to https://github.com/danielmenezesbr/modernie-winrm for the sweet provisioning plugin
+###### I'll add the other link I used when I find it...

@@ -6,11 +6,10 @@ require_relative 'provision/ie-box-automation-plugin.rb'
 Vagrant.configure(2) do |config|
     config.vm.box = "win10_daily"
     config.vm.box_check_update = false
-    config.vm.box_url = "file:///PATH_TO_YOUR_UNZIPPED_IMAGE/dev-msedge.box"
-    # Hash check from a recent box...
-    #config.vm.box_download_checksum_type = "sha1"
-    #config.vm.box_download_checksum = "d671f36eb36b43c8ce932dd52885b17a164d8447"
-    config.vm.host_name = "burner"
+    config.vm.box_url = "file:///Users/dustinlee/ISOs/dev-msedge.box"
+    config.vm.box_download_checksum_type = "sha1"
+    config.vm.box_download_checksum = "d671f36eb36b43c8ce932dd52885b17a164d8447"
+    #config.vm.host_name = "burner"
     config.vm.boot_timeout = 600
     config.vm.guest = :windows
 
@@ -40,16 +39,14 @@ Vagrant.configure(2) do |config|
 
     if provisioned?
         # Copy local files to box
-        # Your local copy of InstallRoot
         config.vm.provision "certs", type: "file" do |copy|
             copy.source = "~/vagrant/daily/provision/InstallRoot4.1.msi"
             copy.destination = "C:\\Users\\IEUser\\InstallRoot.msi"
         end
-        # If you have a local copy of Office to push and install...
-        #config.vm.provision "office", type: "file" do |copy|
-        #    copy.source = "~/vagrant/daily/provision/OfficeSetupx64.exe"
-        #    copy.destination = "C:\\Users\\IEUser\\OfficeSetupx64.exe"
-        #end
+        config.vm.provision "office", type: "file" do |copy|
+            copy.source = "~/vagrant/daily/provision/OfficeSetupx64.exe"
+            copy.destination = "C:\\Users\\IEUser\\OfficeSetupx64.exe"
+        end
         config.vm.provision "programs", type: "file" do |copy|
             copy.source = "~/vagrant/daily/provision/packages.config"
             copy.destination = "C:\\Users\\IEUser\\packages.config" 
@@ -60,5 +57,5 @@ Vagrant.configure(2) do |config|
     end
 
     # Host files are shared on the Desktop
-    config.vm.synced_folder ".", "/Users/IEUser/Desktop/Sync" if provisioned? 
+    config.vm.synced_folder "/Users/dustinlee/WinVMStuff", "/Users/IEUser/Desktop/Sync" if provisioned? 
 end
