@@ -4,9 +4,13 @@
 require_relative 'provision/ie-box-automation-plugin.rb'
 
 Vagrant.configure(2) do |config|
-    config.vm.box = "win10_daily"
+    # Run a script to see if box exists
+    config.trigger.before :up do
+      info "Checking for modern.ie Vagrant box locally. If not available, we'll download it."
+      run  "bash provision/checkvm.sh"
+    end
+    config.vm.box = "dev-msedge"
     config.vm.box_check_update = false
-    config.vm.box_url = "file:///PATH_TO_YOUR_UNZIPPED_IMAGE/dev-msedge.box"
     # Hash check from a recent box...
     #config.vm.box_download_checksum_type = "sha1"
     #config.vm.box_download_checksum = "d671f36eb36b43c8ce932dd52885b17a164d8447"
@@ -22,8 +26,8 @@ Vagrant.configure(2) do |config|
         vb.cpus = 2
         vb.customize ['modifyvm', :id, '--usb', 'on']
         vb.customize ["modifyvm", :id, "--vram", "64"]
-        # Appropriate path to where your smartcard reader is mapped
-        #vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'SmartCard', '--vendorid', '0x04e6', '--productid', '0xe001']
+        vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+        vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'SmartCard', '--vendorid', '0x04e6', '--productid', '0xe001']
     end
 
     # Start provisioning of box via ssh
