@@ -27,7 +27,8 @@ Vagrant.configure(2) do |config|
         vb.customize ['modifyvm', :id, '--usb', 'on']
         vb.customize ["modifyvm", :id, "--vram", "64"]
         vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
-        vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'SmartCard', '--vendorid', '0x04e6', '--productid', '0xe001']
+        # Choose the location of your smartcard reader to automount
+        #vb.customize ['usbfilter', 'add', '0', '--target', :id, '--name', 'SmartCard', '--vendorid', '0x04e6', '--productid', '0xe001']
     end
 
     # Start provisioning of box via ssh
